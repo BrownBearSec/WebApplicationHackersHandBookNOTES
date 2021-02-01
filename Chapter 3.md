@@ -127,3 +127,23 @@ HTTP Authentication
 - -> Digest = challenge-response mechnaism uses MD5 checksums of a nonce with user's creds
 
 # Web Functionality
+
+Server-Side Functionality
+- HTTP requests can be used to send parameters to the application in three main ways:
+- -> In the URL query string
+- -> in the file path of REST-style URLs
+- -> In HTTP cookies
+- -> In the body of requests using the POST methods
+- Web applications employ a wide range of technologies on the server-side to deliver their functionality:
+- -> Scripting language such as PHP, VBScript, and Perl
+- -> Web application platforms such as ASP.NET and Java
+- -> Web servers such as Apache, IIS, and Netscape Enterprise
+- -> Databases such as MS-SQL, Oracle, and MySQL
+- -> Other back-end components such as filesystems, SOAP-based web services, and directory services
+
+The Java Platform
+- In the past the Java Platform, Enterprise Edition (formerly J2EE) was a standard for large-scale enterprise applications
+- Java-based web applications' confusing terms:
+- -> An Enterprise Java Bean (EJB) is a relativley heavyweight software component that encapsulates the logic
+- -> A Plain Old Java Object (POJO) ordinary Java object, used to denote objects that are user-defined. Simple and leightweight
+- -> A Java Servlet, object that resides on an application server and recieves HTTP requests and returns responses
