@@ -147,3 +147,152 @@ The Java Platform
 - -> An Enterprise Java Bean (EJB) is a relativley heavyweight software component that encapsulates the logic
 - -> A Plain Old Java Object (POJO) ordinary Java object, used to denote objects that are user-defined. Simple and leightweight
 - -> A Java Servlet, object that resides on an application server and recieves HTTP requests and returns responses
+- -> A Java Web Container is a platform or engine that provides a run time environment for Java-based web apps. Eg Apache Tomcat, BEA WebLogic, and JBoss.
+- Many Java web apps employ third-party and open source components:
+- -> Authentication - JAAS, ACEGI
+- -> Presentation layer - SiteMesh, Tapestry
+- -> Database object relational mapping - Hibernate
+- -> Logging - Log4J
+
+ASP.NET
+- Microsoft's web application framework
+- Direct competitor to Java platform
+- ASP.NET has inbuilt xss protection, but not all protection
+
+PHP
+- used in conjunction with other free techs known as LAMP stack
+- LAMP stack = Linux as OS, Apache as web server, MySQL as db server, PHP as programming language
+- open souce components:
+- -> Bulletin boards - PHPBB, PHP-Nuke
+- -> Administrative front ends - PHPMyAdmin
+- -> Web mail - SquirrelMail, IlohaMail
+- -> Photo galleries - Gallery
+- -> shopping carts - osCommerce, ECW-Shop
+
+Ruby on Rails
+- Strong emphasis on Model-View-Controller architecture
+- Rails can autogenerate a model for a database content, controller actions for modifying it, and default views for the application user
+- ruby has alot of reported vulns
+
+SQL
+- SQL uses querires to perform common tasks such as reading, adding, updating and deleting data from a relational database
+
+XML
+- specification for encoding data
+- tag based 
+- XML docs often include a Document Type Definition (DTD), which defines the tags and attributes used in the document
+- Used alot on the web
+
+Client-Side Functionality
+
+HTML
+- tag based
+- XHTML is a development of HTML that is based on XML and has stricter specifications than HTML
+- XHTML is more secure than HTML
+
+Hyperlinks
+- frequently contains url parameters
+- sends data without user knowing what the value of the parameters are (often)
+
+Forms
+- HTML forms allow for arbitrary input
+- specifies method
+- the request contains `x-www-form-urlencode`, parameters are represted in the message body as name/value pairs
+
+CSS
+- describes the presentation
+- CSS is increasingly relevant both as a source of security vulns and as a means of delivering exploits
+
+Javascript
+- Stuff can be carried out on the client side without even notifying the server
+- enhance userbility
+- often used to:
+- -> validate user-entered data
+- -> Dynamic modifying UI
+- -> Querying and updating the document object model (DOM)
+
+VBScript
+- JS alternative supported only in the Internet Explorer browser
+- Less powerful and developed than JS
+
+Document Object Model
+- DOM is an abstract representation
+- can be quired and manipulated
+- DOM includes an event model, allowing code to hook events such as form submission, navigation via links and keystrokes
+
+Ajax
+- Ajax is a colleciton of programming techniques 
+- Ajax is a way of loading more of a website smoothly by sending minimal data to the server and updating as much as possible on the clientside
+- "Asyncronous Javascript and XML"
+- no longer need to be asynchronous and no longer requires XML
+- Ajax is still beneficial in providing a more seamless experience by avoiding the need to reload an entire page.
+
+JSON
+- Javascript Object Notation
+- data transfer format that can be used to serialize arbitrary data.
+- used nowadays in Ajax as an alternative to XML
+
+Same-Origin Policy
+- made to ensure content recieved from one website is only allowed to read and modify the site it came from
+- Key features:
+- -> A page residing on one domain can cause an arbitrary request to be made to another domain. But it cannot itself process the data returned from that request
+- -> A page residing on one omain can load a script from another domain and execute this within its own context.
+- -> A page residing on one dmain cannot read or modify the cookies or other DOM data belonging to another domain.
+
+HTML5
+- it introduces new tags, attributes and APIs that can be leveraged to deliver XSS and other attacks
+- it modifies the core Ajax technology, `XMLHttpRequest`, to enable two-way cross-domain interactions. This can lead to new cross-domain attacks
+- it introduces new mechanisms for client-side data storage which can lead to user privacy issues, and new catagories of attack such as client-side SQL injection
+
+"Web 2.0"
+- Buzz word
+- Heavy use of Ajax
+- Increased cross-domain integration
+- Use of new techs on client side
+- More functionality supporting user-generated content, info sharing, and interaction
+- new vulns
+
+Browser Extension Technologies
+- can be deployed as byte code or install native executables
+- Thick-client techs you will encounter when attack a web app:
+- -> Java applets
+- -> ActiveX controls
+- -> Flash objects
+- -> Silverlight objects
+
+State and sessions 
+- individual user's data is held wit5hin a se5rver-side structure called a session
+- sessions used to keep track of users, this is done by issuing each client a token corresponding with their session
+
+# Encoding schemes
+
+URL encoding 
+- uses US-ASCII character set
+- several characters are restricted, `=`, `&`, `?` etc
+- useful ones to know `%3d` correlates to `=`, `%2d` correlates to `%`, `%20` correlates to `space`, `%0a` correlates to `New line`, `%00` correlates to `Null byte`
+- `+` can also be used as `%20`
+
+Unicode encoding
+- designed to accept the whole worlds characters
+- For transmission of HTTP, it uses the format `%u` + a hexadecimal code
+- eg, `%u2215` correlates to `/`
+
+HTML encoding 
+- used to represent problematic chars in html docs
+- eg `&lt;` correlates to `<`
+
+Base64 Encoding
+- allows binary data to be saftley represented using only ascii chars
+- Base64 encoding processes input data in blocks of three bytes. Each is divided into four chunks of six bytes. Six bits of data allows for 64 different possible permutations, each chunk can be represented using a set of 64 chars.
+- Base64 uses this char set `ABDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz0123456789+/`
+- many web apps use base64 to transmit binary data within cookies and other parameters, and to hide senstivie data
+
+Hex encoding
+- Base16 encoded
+
+Remoting and Serialization Frameworks
+- Allows developers to abstract5 away from the nature of distributed nature of web apps
+- examples:
+- -> Flex and AMF
+- -> Silverlight and WCF
+- -> Java serialized objects
