@@ -70,3 +70,91 @@ Discovering Hidden Parameters
 - other common debug paramter names, debug, test, hide, source, etc. and common values, true, yes, on, 1, etc.
 
 # Analyzing the application
+
+Key areas to investigate:
+- The applications core functionality
+- Off-site links, error messages, admin/logging functions, use of redirects
+- security mechanisms: session management, access controls, auth mechs, account changes
+- all inputs the user can change.
+- client-side techs
+- server-side techs, web host, db, email, etc
+
+Identifying entry points for user inputs
+- URLS
+- URL get params
+- POST params
+- cookies
+- every HTTP header
+
+URL File Paths
+- REST style urls can act as query data, not just files or directories
+- EG: `http://domain.com/browse/electronics/Iphone`, `electronics` and `Iphone` should be treated as inputs
+
+Request Parameters:
+- get parameters are not always in `name=value` syntax
+- alternate nonstandard parameter formats:
+- -> `/dir/file;foo=bar&foo2=bar2`
+- -> `/dir/file?foo=bar$foo2=bar2`
+- -> `/dir/file/foo%3dbar%26foo%23dbar2`
+- -> `/dir/foo.bar/file`
+- -> `/dir/foo=bar/file`
+- -> `/dir/file?param=file:bar`
+- -> `/dir/file?data=%2cfoo%3ebar%3c%2ffoo%3e%3cfoo2%3ebar2%3c%2ffoo2%3e`
+
+HTTP Headers
+- lots of applications log HTTP headers such as `Referer` and `User-Agent`
+- further processing may be done on `Referer` if you came from specific sites, such as web browsers
+- processing on `User-Agent` is done to find which device the user is on
+- Apps sometimes try to get your IP, if you use the`X-Forwarded-For` request Header you can input your own string
+
+Out-of-Band Channels
+- Web mail application that processes emails
+- publishing application tjat can retrieve content from another server
+- An intusion detection application that gathers data and presents this using a web app inteface
+- Any kind of app that provides an API interface for uise by non-browser user agents, eg cell phone apps
+
+Identifying Server-side Technologies
+
+Banner Grabbing
+- Servers disclose lots of info in the `Server` header:
+- other than the `Server` header, in other locations the following can be found:
+- -> Templates usedto build HTML pages
+- -> Custom HTTP Headers
+- -> URL Query string parameters 
+
+Http Fingerprinting
+- Any info got from the server can be accidently, or purposefully wrong and misleading
+
+File extensions
+- ASP = Microsoft Active Server Pages
+- ASPX = Microsoft ASP.NET
+- JSP = Java Server Pages
+- CFM = Cold fusion
+- PHP = The PHP lang
+- D2W = WebSphere
+- PL = the Perl lang
+- PY = python lang
+- DLL = usually compiled native code (c or c++)
+- NSF or NTF = Lotus Domino
+- Even if the file extension is not shown it can be found through default files, error messages, etc
+
+Directory names
+- If you see any of the following directories, you can associate it with a framework:
+- -> servlet = Java servlets
+- -> pls = Oracle Application Server PL/SQL gateway
+- -> cfdocs or cfide = Cold Fusion
+- -> SilverStream = The SilverStream web server
+- -> WebObjects or {function}.woa = Apple WebObjects
+- -> rails = Ruby on Rails
+
+Session Tokens
+- If you can see these token names you can associate it with a framework:
+- -> `JSESSIONID` - The java platform
+- -> `ASPSESSIONID` - Microsoft ISS server
+- -> `ASP.NET_SessionId` - Microsoft ASP.NET
+- -> `CFID/CFTOKEN` - Cold Fusion
+- -> `PHPSESSID` - PHP
+
+Third-Party Code components
+- Many web apps use third party code for things like, shopping carts, login mechanisms, message boards, etc.
+- This code can be downloaded and tested locally.
