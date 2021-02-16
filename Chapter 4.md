@@ -158,3 +158,38 @@ Session Tokens
 Third-Party Code components
 - Many web apps use third party code for things like, shopping carts, login mechanisms, message boards, etc.
 - This code can be downloaded and tested locally.
+
+Identifying Server-Sude Functionality
+
+Dissecting Requests
+- Urls can give away web franeworks, debug options, tell about db, etc.
+
+Extrapolating Application Behaviour
+- code reuse means assumptions can be made across areas of a platoform
+- eg global sanitization means if you can find an exploit in one location, it may be applicable elsewhere
+- Errors are often handled inconsistently, some areas handle them gracefully, others dont and return information.
+
+Isolating Unique Application Behaviour
+- If they are using a secure framework look for "bolted on" parts of the app to exploit.
+
+Mapping the Attack Surface, check for the following:
+- Client-Side validaiton - may not be done on the server
+- Db interaction - SQLi
+- File upload/download - Path treversal, stored XSS, SSRF
+- Display of user-supplied data - xss
+- Dynamic redirects - Redirection and header injection attacks
+- Social networking features - username enum, stored xss
+- Login - username enum, weak passwords, rate limiting checks
+- Multistage login - Logic flaws 
+- Session state - predictable token, insecure handling
+- Access controls - Horizontal/vertical priveledge escalation
+- User impersonation functions - priv esc
+- Use of cleartext communications - session hijacking, capture of creds, other data
+- Off-site links - Leakage of query string parameters in the `Referer` header
+- Interfaces to external systems - session control
+- Error messages - data leak
+- E-mail interaction - email/command injection
+- Native code components or interacton - Buffer overflows
+- Use of third-party application components - known vulns
+- Identifiable web server software - common config weakness, known vulns
+
