@@ -77,4 +77,48 @@ Vulnerable Mapping of Tokens to sessions
 - tokens may be valid for any user as long as they are valid for one. (bad)
 
 Vulnerable Session Termination
-- 
+- reduces the time an old vulnerable token can be used
+- allows for an existing session to be terminated when it is no longer required
+- ways that logout functionality is not effective:
+- -> Not implemented at all
+- -> does not cause the server to invalidate the cookie, just removes the user's cookie
+- -> not communicated to the server on logout, simply executes a clientside script to remove cookie
+
+Client Exposure to Token Hijacking
+- xss to steal session tokens
+- make a session token (so you know it) and then make another user login using it
+- csrf exploits the browser automatically giving the token
+
+Liberal Cookie Scope
+- The cookie mechanism can aos be used to specificy the domain and url path to which each cookie will be resubmitted, this uses the `domain` and `path` attributes included in the `Set-cookie` instruction
+
+Cookie Domain Restrictions
+- The browser will only submit cookies to the same domain, and its subdomains, eg `Set-cookie: id=123; domain=example.com` will be a valid cookie on example.com and all of its sub domains
+- a token specifying one subdomain is valid on another subdomain
+
+Cookie Path Restrictions
+- an app that has set a cookie with a specific path will be valid for subdirectories, but not for parent directories
+
+# Securing Session Management
+
+Generate Strong Tokens
+- use an extremely large set of possible values
+- strong sources of pseduorandomness
+- should not be bruteforcable
+- should not be gusseable
+- Examples of pseduorandom items that can be **ADDED** to the already complex token to add entropy:
+- -> Source IP and port
+- -> User agent
+- -> Time of request in miliseconds
+
+Protect tokens throughtout their life cycle
+- Only ever transmitted over HTTPS
+- never transmitted in url
+- logout functionality should dispose of all sessions
+- Session expiration should be implemented
+- Concurrent logins should be prevented, a different session token should be used each login.
+- domain and path scope should be as tight as possible
+- the apps codebase should be regourously audited 
+- any unknown tokens should be immedietly rejected
+- csrf can be prevented with 2fa or recauth before critical actions
+
